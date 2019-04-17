@@ -17,11 +17,11 @@ def check(outlog = "checklog.txt"):
         if len(_) > 2:
             x = float(_[1])
             if x < 0.95:
-                mess = _[3], x, "L"
+                mess = "LP1", _[3], x, "L"
                 print mess
                 outf.write(str(mess)[1:-1] + "\n")
             if x > 1.05:
-                mess = _[3], x, "H"
+                mess = "LP1", _[3], x, "H"
                 print mess
                 outf.write(str(mess)[1:-1] + "\n")
     ###
@@ -97,19 +97,19 @@ def check(outlog = "checklog.txt"):
         dict_l5[_[18]] = (_[10], _[9], _[8], _[7])
     for i in dict_lp5:
         if dict_lp5[i][0] > dict_l5[i][1] and dict_l5[i][1] != 0:
-            mess = "generator", i, "PH"
+            mess = "LP5", i, "PH"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
         if dict_lp5[i][0] < dict_l5[i][0] and dict_l5[i][0] != 0:
-            mess = "generator", i, "PL"
+            mess = "LP5", i, "PL"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
         if dict_lp5[i][1] > dict_l5[i][3] and dict_l5[i][3] != 0:
-            mess = "generator", i, "QH"
+            mess = "LP5", i, "QH"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
         if dict_lp5[i][1] < dict_l5[i][2] and dict_l5[i][2] != 0:
-            mess = "generator", i, "QL"
+            mess = "LP5", i, "QL"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
     #
@@ -128,19 +128,19 @@ def check(outlog = "checklog.txt"):
         dict_l6[_[18]] = (_[11], _[10], _[9], _[8])
     for i in dict_lp6:
         if dict_lp6[i][0] > dict_l6[i][1] and dict_l6[i][1] != 0:
-            mess = "load", i, "PH"
+            mess = "LP6", i, "PH"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
         if dict_lp6[i][0] < dict_l6[i][0] and dict_l6[i][0] != 0:
-            mess = "load", i, "PL"
+            mess = "LP6", i, "PL"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
         if dict_lp6[i][1] > dict_l6[i][3] and dict_l6[i][3] != 0:
-            mess = "load", i, "QH"
+            mess = "LP6", i, "QH"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
         if dict_lp6[i][1] < dict_l6[i][2] and dict_l6[i][2] != 0:
-            mess = "load", i, "QL"
+            mess = "LP6", i, "QL"
             print mess
             outf.write(str(mess)[1:-1] + "\n")
     #
