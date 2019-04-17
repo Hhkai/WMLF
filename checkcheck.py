@@ -1,3 +1,6 @@
+import time
+import os
+
 def check(outlog = "checklog.txt"):
     outf = open(outlog, "w")
     with open("LF.CAL") as f:
@@ -145,6 +148,16 @@ def check(outlog = "checklog.txt"):
             outf.write(str(mess)[1:-1] + "\n")
     #
     return True
-    
+#
+def store():
+    name = str(time.time())[:10]
+    os.mkdir(name)
+    os.system('copy LF.L2 '+name)
+    os.system('copy LF.L3 '+name)
+    os.system('copy LF.L5 '+name)
+    os.system('copy LF.L6 '+name)
+    os.system('copy checklog.txt '+name)
+#
 if __name__ == "__main__":
-    print check()
+    check()
+    store()
