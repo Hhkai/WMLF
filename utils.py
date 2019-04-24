@@ -16,5 +16,21 @@ def mL5Col4(*values):
         for line in data_list:
             f.write(str(line)[1:-1] + ',\n')
 #
+def con2dict(G):
+    row_n = len(G)
+    for i in G:
+        assert(len(i)==row_n)
+    G_dict = dict()
+    for rowid, row in enumerate(G):
+        G_dict[rowid+1] = dict()
+        for colid in range(rowid, row_n):
+            if colid == rowid:
+                G_dict[rowid+1][colid+1] = row[colid]
+            else:
+                if row[colid] != 0:
+                    G_dict[rowid+1][colid+1] = row[colid]
+    #
+    return G_dict
+#
 if __name__ == "__main__":
     mL5Col4(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
