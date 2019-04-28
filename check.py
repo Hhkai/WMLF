@@ -152,7 +152,6 @@ def check(outlog = "checklog.txt"):
 def store():
     name = str(time.time())[:10]
     os.mkdir(name)
-    os.system('WMLFRTMsg')
     os.system('copy LF.L2 '+name)
     os.system('copy LF.L3 '+name)
     os.system('copy LF.L5 '+name)
@@ -160,6 +159,10 @@ def store():
     os.system('copy checklog.txt '+name)
     print name
 #
+def run():
+    os.system("WMLFRTMsg")
+#
 if __name__ == "__main__":
+    run()
     check()
     store()
