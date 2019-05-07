@@ -3,7 +3,7 @@ import time
 import random
 def interval(a, b, origin_value):
     if a == 0 and b == 0:
-        return origin_value + random.random() - 0.5
+        return origin_value + 5*random.random() - 0.5
     return (b - a) * random.random() + a
 def generate():
     list_L1 = []
@@ -52,9 +52,9 @@ def generate():
             templine = []
             for j in i:
                 templine.append(j)
-            _ = random.random()
-            templine[3] = interval(templine[11], templine[10], templine[3])
-            templine[4] = interval(templine[9], templine[8], templine[4])
+            
+            templine[4] = interval(templine[11], templine[10], templine[4])
+            templine[5] = interval(templine[9], templine[8], templine[5])
             for ind, iii in enumerate(templine):
                 if type(iii) == type(0.0):
                     templine[ind] = round(iii, 6)
