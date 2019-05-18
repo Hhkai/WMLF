@@ -32,6 +32,49 @@ def writeL5(mx):
         for i in mx:
             f.write(str(i)[1:-1] + '\n')
 #
+def savegraph(conn, mxL5, mxL6):
+    paras = []
+    for line in mxL5:
+        if line[2] == 1:
+            paras.append(line[3])
+            paras.append(line[4])
+        if line[2] == -1:
+            paras.append(line[3])
+            paras.append(line[5])
+    for line in mxL6:
+        paras.append(line[4])
+        paras.append(line[5])
+    sparas = ['%.6f' % i for i in paras]
+    ind = str(time.time())[:10]
+    cursor = conn.cursor()
+    comd = "insert into graph values('%s', %s)" % (ind, str(sparas)[1:-1])
+    # print comd
+    cursor.execute(comd)
+    cursor.close()
+    conn.commit()
+    time.sleep(1)
+    return ind
+def saveflag(conn, ind, flag):
+    cursor = conn.cursor()
+    comd = "insert into flag values('%s', '%s')" % (ind, flag)
+    # print comd
+    cursor.execute(comd)
+    cursor.close()
+    conn.commit()
+    time.sleep(1)
+    return ind
+def saveedge(conn, u, v):
+    cursor = conn.cursor()
+    ind = str(time.time())[:10]
+    comd = "insert into edge values('%s', '%s', '%s')" % (ind, u, v)
+    # print comd
+    cursor.execute(comd)
+    cursor.close()
+    conn.commit()
+    time.sleep(1)
+    return ind
+    
+conn = MySQLdb.connect(host = 'localhost', port = 3306, user = 'root', passwd = '1234', db = 'net36node')
 
 for L6line in range(10):
     mx = readL6()
@@ -65,8 +108,9 @@ for L6line in range(10):
     ##### try to find the generator
     L5mx = readL5()
     rate = [i / 10.0 for i in range(40)]
-    beforesaved = 0
     nosol = 1
+    beforesaved = savegraph(conn, L5mx, mx)
+    saveflag(conn, beforesaved, 0)
     for L5line in range(8):
         if L5mx[L5line][2] == 1:
             orip = L5mx[L5line][3]
@@ -83,6 +127,9 @@ for L6line in range(10):
                     print "find success: ", L6line, L5line
                     nosol = 0
                     # store
+                    ind = savegraph(conn, L5mx, mx)
+                    saveflag(conn, ind, 1)
+                    saveedge(conn, beforesaved, ind)
                     break
             L5mx[L5line][3] = orip
             L5mx[L5line][4] = oriq
@@ -103,6 +150,9 @@ for L6line in range(10):
                     print "find success: ", L6line, L5line
                     nosol = 0
                     # store
+                    ind = savegraph(conn, L5mx, mx)
+                    saveflag(conn, ind, 1)
+                    saveedge(conn, beforesaved, ind)
                     break
             L5mx[L5line][3] = orip
             writeL5(L5mx)
@@ -112,3 +162,6 @@ for L6line in range(10):
     mx[L6line][4] = oL6p
     mx[L6line][5] = oL6q
     writeL6(mx)
+#
+conn.close()
+exit()
